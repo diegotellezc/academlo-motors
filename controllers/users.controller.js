@@ -136,7 +136,7 @@ exports.deleteUser = async (req, res) => {
       });
     }
 
-    await user.update({ status: 'cancelled' });
+    await user.update({ status: 'disabled' });
 
     res.status(200).json({
       status: 'success',
