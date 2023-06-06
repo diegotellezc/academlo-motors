@@ -72,7 +72,6 @@ exports.findRepair = async (req, res) => {
 exports.updateRepair = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
 
     const repair = await Repair.findOne({
       where: {
