@@ -16,7 +16,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   if (!token) {
     return next(
-      new AppError('You are not logged in!, Please log in to get access', 401)
+      new AppError('You have not logged in!, Please log in to get access', 401)
     );
   }
 
@@ -60,11 +60,15 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.protectAccountOwner = catchAsync(async (req, res, next) => {
   const { user, sessionUser } = req;
-  if (user.id !== sessionUser.id) {
-    return next(new AppError('You do not own this account.', 401));
-  }
+  if (sessionUser.role === 'employee') {
+    next();
+  } else {
+    if (user.id !== sessionUser.id) {
+      return next(new AppError('You do not own this account.', 401));
+    }
 
-  next();
+    next();
+  }
 });
 
 exports.restrictTo = (...roles) => {

@@ -1,4 +1,5 @@
 const Repair = require('../models/repairs.model');
+const Users = require('../models/users.model');
 const catchAsync = require('../utils/catchAsync');
 
 exports.findRepairs = catchAsync(async (req, res, next) => {
@@ -41,6 +42,12 @@ exports.findRepair = catchAsync(async (req, res, next) => {
       id,
       status: 'pending',
     },
+    include: [
+      {
+        model: Users,
+        attributes: ['id', 'name', 'email', 'role'],
+      },
+    ],
   });
 
   if (!oneRepair) {
@@ -58,7 +65,7 @@ exports.findRepair = catchAsync(async (req, res, next) => {
 });
 
 exports.updateRepair = catchAsync(async (req, res, next) => {
-  const { repair } = req;
+  const { repair, user } = req;
 
   const updatedRepair = await repair.update({ status: 'completed' });
 
@@ -66,6 +73,7 @@ exports.updateRepair = catchAsync(async (req, res, next) => {
     status: 'success',
     message: 'Repair updated',
     repair: updatedRepair,
+    user,
   });
 });
 

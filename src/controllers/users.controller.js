@@ -7,6 +7,9 @@ const AppError = require('../utils/appError');
 exports.findAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
     where: { status: 'available' },
+    attributes: {
+      exclude: ['status', 'password'],
+    },
   });
 
   res.json({
@@ -122,6 +125,12 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: `The user with id:${user.id} was updated`,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
   });
 });
 
