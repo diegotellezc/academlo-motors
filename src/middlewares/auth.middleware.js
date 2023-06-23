@@ -44,6 +44,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.protectAccountOwner = catchAsync(async (req, res, next) => {
   const { user, sessionUser } = req;
+
   if (sessionUser.role === 'employee') {
     next();
   } else {

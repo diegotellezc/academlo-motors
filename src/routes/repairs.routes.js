@@ -28,7 +28,7 @@ router
   .use('/:id', repairMiddleware.validRepair)
   .route('/:id')
   .get(repairsController.findRepair)
-  .patch(authMiddleware.protectAccountOwner, repairsController.updateRepair)
-  .delete(authMiddleware.protectAccountOwner, repairsController.deleteRepair);
+  .patch(repairsController.updateRepair)
+  .delete(repairsController.deleteRepair);
 
 module.exports = router;
