@@ -12,7 +12,7 @@ exports.findAllUsers = catchAsync(async (req, res, next) => {
     },
   });
 
-  res.json({
+  res.status(200).json({
     results: users.length,
     status: 'success',
     users,
