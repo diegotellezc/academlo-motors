@@ -34,6 +34,7 @@ exports.createRepair = catchAsync(async (req, res, next) => {
   });
 
   res.status(201).json({
+    status: 'success',
     message: 'Motorcycle repair created successfully',
     repair,
   });
