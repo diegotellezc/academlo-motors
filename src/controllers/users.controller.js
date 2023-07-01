@@ -24,7 +24,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   const existingUser = await User.findOne({
     where: {
-      email,
+      email: email.toLowerCase(),
     },
   });
 
